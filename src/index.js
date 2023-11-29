@@ -3,25 +3,41 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import accountReducer from './redux/accountReducer';
+//import accountReducer from './redux/accountReducer';
 //import './store';
 //import reducer
-import { applyMiddleware, createStore } from 'redux';
+//import { applyMiddleware, createStore } from 'redux';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import { customerReducer } from './redux/customerReducer';
+//import { customerReducer } from './redux/customerReducer';
 import { rootReducer } from './redux/rootReducer';
 import { myLogger } from './redux/myLogger';
 import Post from './Post';
 import { postReducer } from './redux/postReducer';
 import thunk from 'redux-thunk';
+import accountReducer from './redux/accountSlice';
+import { customerReducer } from './redux/customerReducer';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const mystore = createStore(postReducer, applyMiddleware(thunk))
+//const mystore = createStore(rootReducer)
+
+// it include required middlewares, it also configures the redux devtools
+const mystore = configureStore({
+  reducer:{
+    account:accountReducer,
+    customer:customerReducer
+  },
+  //middleware:(getDefaultMiddleware) => getDefaultMiddleware(),
+  devTools: process.env.NODE_ENV !== 'production'
+})
+
+
 console.log('Store is created=>')
 root.render(
   <Provider store = {mystore}>
-    {/* <App /> */}
-    <Post/>
+    <App />
+    {/* <Post/> */}
   </Provider>
 );
 
@@ -36,3 +52,5 @@ reportWebVitals();
 // CombineReducer: put all your reducers into one object and use that
 
 // Redux Middleware: Redux provides a point between dispatching an action and the moment it reaches the reducer
+
+// Slice : Module(s)
