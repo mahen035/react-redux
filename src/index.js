@@ -23,21 +23,24 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //const mystore = createStore(rootReducer)
 
 // it include required middlewares, it also configures the redux devtools
-const mystore = configureStore({
-  reducer:{
-    account:accountReducer,
-    customer:customerReducer
-  },
+//const mystore = configureStore({
+  //reducer:{
+    //account:accountReducer,
+    //customer:customerReducer
+   // post:postReducer
+  //},
+  const mystore = configureStore({
+    reducer:postReducer
+  })
   //middleware:(getDefaultMiddleware) => getDefaultMiddleware(),
-  devTools: process.env.NODE_ENV !== 'production'
-})
-
+ // devTools: process.env.NODE_ENV !== 'production'
+//})
 
 console.log('Store is created=>')
 root.render(
   <Provider store = {mystore}>
-    <App />
-    {/* <Post/> */}
+    {/* <App /> */}
+    <Post/>
   </Provider>
 );
 
